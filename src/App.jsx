@@ -59,7 +59,9 @@ function App() {
     }
   }, [theme]);
 
-
+  
+  const hasAudio = data?.phonetics?.some(phone => phone.audio !== '' && phone.audio);
+  
   return (
     <div className={`min-h-screen transition-colors duration-300 font-${font} ${theme === 'dark' ? 'bg-app-black text-white' : 'bg-white text-gray-700'}`}>
       
@@ -128,12 +130,17 @@ function App() {
                 <p className="text-xl md:text-2xl text-app-purple font-medium">{data.phonetic}</p>
               </div>
               
-              <button 
-                onClick={playAudio}
-                className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-app-purple/20 flex items-center justify-center hover:bg-app-purple transition-all group"
-              >
-                <BsPlayFill className="text-3xl md:text-5xl text-app-purple group-hover:text-white pl-1" />
-              </button>
+              
+              {hasAudio && (
+                <button 
+                  onClick={playAudio}
+                  className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-app-purple/20 flex items-center justify-center hover:bg-app-purple transition-all group"
+                >
+                  <BsPlayFill className="text-3xl md:text-5xl text-app-purple group-hover:text-white pl-1" />
+                </button>
+              )}
+              
+
             </div>
 
             {data.meanings.map((meaning, index) => (
